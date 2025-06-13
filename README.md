@@ -161,23 +161,37 @@ Install below plugins
 Goto Manage Jenkins → Tools → Install JDK(17) and NodeJs(16)→ Click on Apply and Save
 
 
-### SonarQube
+3. **Integrate SonarQube with Jenkins**
 
-Create the token
+Set Up SonarQube Project and Token
 
-Goto Jenkins Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+    Log into SonarQube UI.
+    Create a new project (e.g., “Netflix-Clone”).
+    Generate a token for Jenkins integration (Administration > Security > Tokens).
 
-After adding sonar token
+c. Integrate SonarQube with Jenkins
 
-Click on Apply and Save
+  Install SonarQube Scanner Plugin in Jenkins:
+  Manage Jenkins > Manage Plugins > Available > SonarQube Scanner
 
-**The Configure System option** is used in Jenkins to configure different server
+   Configure SonarQube Server in Jenkins:
+   Manage Jenkins > Configure System > SonarQube Servers
+   Add SonarQube URL (e.g., http://<your-ec2-public-ip>:9000)
+   Add the token created above as credentials.
 
-**Global Tool Configuration** is used to configure different tools that we install using Plugins
+  Configure SonarQube Scanner in Jenkins:
+  Manage Jenkins > Global Tool Configuration > SonarQube Scanner
+  Name it (e.g., sonar-scanner)
 
-We will install a sonar scanner in the tools.
+  Add Sonar Token to Jenkins Credentials:
+  Manage Jenkins > Credentials > Add Credentials
+        -Kind: Secret Text
+        -Secret: <your-sonar-token>
+        -ID: Sonar-token
 
-Create a Jenkins webhook
+d. Add SonarQube Analysis Stage to Jenkins Pipeline
+
+Add this stage in your Jenkinsfile/pipeline:
 
 1. **Configure CI/CD Pipeline in Jenkins:**
 - Create a CI/CD pipeline in Jenkins to automate your application deployment.
